@@ -10,6 +10,6 @@ Una página web simple para mostrar servicios de consultoría. Esta página ser�
 
 ## Despliegue automático
 
-El flujo CI/CD está definido en `.github/workflows/deploy.yml` para desplegar automáticamente al hacer `push` en la rama `main`.
+El flujo CI/CD está definido en `.github/workflows/deploy.yml` para desplegar automáticamente al hacer `push` en la rama `master`.
 
 
