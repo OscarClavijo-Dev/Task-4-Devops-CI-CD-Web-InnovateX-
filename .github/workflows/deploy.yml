@@ -1,9 +1,8 @@
 name: CI/CD - Deploy Consultoria Web
 
-# Ejecutar el workflow cada vez que haya un push en la rama master
 on:
   push:
-    branches: [ "master" ]  
+    branches: [ "master" ]
 
 permissions:
   contents: read
@@ -15,35 +14,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Paso 1: Clonar el código fuente
-      - name: Checkout código
+      - name: Checkout código fuente
         uses: actions/checkout@v4
 
-      # Paso 2: Prueba básica - Verificar si index.html existe
-      - name: Paso de testing - Verificar index.html
+      - name: Simular test
         run: |
+          echo "Simulando pruebas..."
           if [ ! -f "index.html" ]; then
-            echo "El archivo index.html no existe"
+            echo "❌ index.html no encontrado"
             exit 1
           fi
-          echo "El archivo index.html existe"
 
-      # Paso 3: Construcción - Copiar archivos a carpeta dist/
-      - name: Paso de build - Copiar archivos a carpeta dist
+      - name: Simular build - copiar archivos a dist/
         run: |
           mkdir dist
           cp index.html styles.css dist/
 
-      # Paso 4: Preparar configuración de GitHub Pages
       - name: Configurar GitHub Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4  
 
-      # Paso 5: Subir los archivos de la carpeta dist
-      - name: Subir archivos a GitHub Pages
-        uses: actions/upload-pages-artifact@v2
+      - name: Subir archivos a Pages
+        uses: actions/upload-pages-artifact@v3  
         with:
-          path: './dist'  # <- Importante: debe ser el mismo que usamos en el paso de build
+          path: './dist'
 
-      # Paso 6: Hacer el despliegue
       - name: Desplegar a GitHub Pages
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4  # Última versión estable
