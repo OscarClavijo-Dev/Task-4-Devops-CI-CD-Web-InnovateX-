@@ -1,25 +1,44 @@
-name: Despliegue en GitHub Pages
+name: CI/CD - Deploy Consultoria Web
 
 on:
   push:
+<<<<<<< HEAD
     branches:
       - master 
+=======
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+>>>>>>> 511c07d (CI/CD: agregado paso de testing y build)
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Obtener código fuente
-        uses: actions/checkout@v3
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
 
-      - name: Configurar GitHub Pages
-        uses: actions/configure-pages@v3
+      - name: Paso de testing - Verificar index.html
+        run: |
+          if [ ! -f "index.html" ]; then
+            echo "❌ El archivo index.html no existe"
+            exit 1
+          fi
+          echo "El archivo index.html existe"
+
+      - name: Paso de build - Copiar archivos a carpeta dist
+        run: |
+          mkdir dist
+          cp index.html styles.css script.js dist/
 
       - name: Subir archivos a GitHub Pages
         uses: actions/upload-pages-artifact@v2
         with:
-          path: '.'
+          path: './dist'
 
-      - name: Desplegar a GitHub Pages
+      - name:  Desplegar a GitHub Pages
         uses: actions/deploy-pages@v2

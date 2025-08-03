@@ -93,4 +93,43 @@ jobs:
 Cada vez que se realice un  `git push`, GitHub ejecutará el flujo de trabajo. El sitio se publicará automáticamente y se mostrará la URL en la sección **Pages** del repositorio.
 
 
+## Paso 6: Simulación de pasos de Test, Build y Deploy
+
+En este punto la aplicación desarrollada es estática y no requiere compilación ni pruebas complejas, pero se simulara con los  pasos para cumplir con el flujo CI/CD completo:
+
+name: Deploy Static Site
+
+on:
+  push:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v4
+
+      - name: Simular test
+        run: echo "Ejecutando tests... (simulado)"
+
+      - name: Simular build
+        run: echo "Compilando el sitio... (simulado)"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Subida de archivos a Pages
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: '.'
+
+      - name: Despliegue a GitHub Pages
+        uses: actions/deploy-pages@v2
+
 
