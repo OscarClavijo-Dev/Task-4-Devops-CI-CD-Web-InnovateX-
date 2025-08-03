@@ -2,17 +2,13 @@ name: CI/CD - Deploy Consultoria Web
 
 on:
   push:
-<<<<<<< HEAD
     branches:
-      - master 
-=======
-    branches: [ "master" ]
+      - master
 
 permissions:
   contents: read
   pages: write
   id-token: write
->>>>>>> 511c07d (CI/CD: agregado paso de testing y build)
 
 jobs:
   deploy:
@@ -28,7 +24,7 @@ jobs:
             echo "❌ El archivo index.html no existe"
             exit 1
           fi
-          echo "El archivo index.html existe"
+          echo "✅ El archivo index.html existe"
 
       - name: Paso de build - Copiar archivos a carpeta dist
         run: |
@@ -40,5 +36,5 @@ jobs:
         with:
           path: './dist'
 
-      - name:  Desplegar a GitHub Pages
+      - name: Desplegar a GitHub Pages
         uses: actions/deploy-pages@v2
