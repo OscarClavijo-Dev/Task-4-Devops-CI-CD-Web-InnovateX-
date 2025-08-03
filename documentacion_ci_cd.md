@@ -97,7 +97,9 @@ Cada vez que se realice un  `git push`, GitHub ejecutará el flujo de trabajo. E
 
 En este punto la aplicación desarrollada es estática y no requiere compilación ni pruebas complejas, pero se simulara con los  pasos para cumplir con el flujo CI/CD completo:
 
-name: Deploy Static Site
+#Codigo
+
+name: CI/CD - Deploy Consultoria Web
 
 on:
   push:
@@ -111,25 +113,34 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout código fuente
         uses: actions/checkout@v4
 
       - name: Simular test
-        run: echo "Ejecutando tests... (simulado)"
+        run: |
+          echo "Simulando pruebas..."
+          if [ ! -f "index.html" ]; then
+            echo "index.html no encontrado"
+            exit 1
+          fi
 
-      - name: Simular build
-        run: echo "Compilando el sitio... (simulado)"
+      - name: Simular build - copiar archivos a dist/
+        run: |
+          mkdir dist
+          cp index.html styles.css dist/
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v4  
 
-      - name: Subida de archivos a Pages
-        uses: actions/upload-pages-artifact@v2
+      - name: Subir archivos a Pages
+        uses: actions/upload-pages-artifact@v3  
         with:
-          path: '.'
+          path: './dist'
 
-      - name: Despliegue a GitHub Pages
-        uses: actions/deploy-pages@v2
+      - name: Desplegar a GitHub Pages
+        uses: actions/deploy-pages@v4  # Última versión estable
+
 
 
