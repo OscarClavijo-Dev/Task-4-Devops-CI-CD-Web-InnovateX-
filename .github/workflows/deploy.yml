@@ -21,10 +21,10 @@ jobs:
       - name: Paso de testing - Verificar index.html
         run: |
           if [ ! -f "index.html" ]; then
-            echo "❌ El archivo index.html no existe"
+            echo "El archivo index.html no existe"
             exit 1
           fi
-          echo "✅ El archivo index.html existe"
+          echo "El archivo index.html existe"
 
       - name: Paso de build - Copiar archivos a carpeta dist
         run: |
