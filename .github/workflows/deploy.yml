@@ -21,7 +21,7 @@ jobs:
         run: |
           echo "Simulando pruebas..."
           if [ ! -f "index.html" ]; then
-            echo "❌ index.html no encontrado"
+            echo "index.html no encontrado"
             exit 1
           fi
 
